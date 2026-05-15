@@ -1,0 +1,25 @@
+{
+  "current_day": 1,
+  "topics": [
+    "arrays",
+    "strings",
+    "hashmaps",
+    "sliding_window",
+    "two_pointers",
+    "prefix_sum",
+    "linked_list",
+    "stack_queue",
+    "binary_search"
+  ],
+  "topic_counts": {
+    "arrays": 0,
+    "strings": 0,
+    "hashmaps": 0,
+    "sliding_window": 0,
+    "two_pointers": 0,
+    "prefix_sum": 0,
+    "linked_list": 0,
+    "stack_queue": 0,
+    "binary_search": 0
+  }
+}
