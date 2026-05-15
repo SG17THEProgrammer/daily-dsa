@@ -1,1 +1,11 @@
-[]
+[
+  {
+    "day": 1,
+    "title": "Subarray with Given Sum",
+    "topic": "arrays",
+    "difficulty": "Medium",
+    "signature": [
+      "public int subarraySum(int[] nums, int target)"
+    ]
+  }
+]
