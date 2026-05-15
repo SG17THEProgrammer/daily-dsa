@@ -1,8 +1,0 @@
-{
-  "title": "Subarray with Given Sum",
-  "topic": "arrays",
-  "difficulty": "Medium",
-  "signature": [
-    "shortestSubarray(int[] nums, int targetSum)"
-  ]
-}

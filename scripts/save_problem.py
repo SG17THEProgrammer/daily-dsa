@@ -109,10 +109,12 @@ def save_problem(problem_data, day_number):
         f.write(f"Space Complexity: {optimal['space_complexity']}\n")
 
     # Save JAVA Solution
-    py_path = os.path.join(folder_path, "Solution.java")
-
-    with open(py_path, "w", encoding="utf-8") as f:
-        f.write(problem_data["optimal_solution"]["java_code"])
+    java_path = os.path.join(
+    folder_path,
+    "Solution.java"
+)
+    with open(java_path, "w", encoding="utf-8") as f:
+        f.write(wrapped_java_code)
 
     # Save metadata
     metadata = {
