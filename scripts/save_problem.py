@@ -1,6 +1,20 @@
 import os
 import json
 from slugify import slugify
+import re
+
+def to_java_class_name(title):
+    """
+    Convert title into valid Java class name.
+
+    Example:
+    'subarray with given sum'
+    -> SubarrayWithGivenSum
+    """
+
+    words = re.findall(r'[a-zA-Z0-9]+', title)
+
+    return ''.join(word.capitalize() for word in words)
 
 def save_problem(problem_data, day_number):
 
@@ -67,9 +81,23 @@ def save_problem(problem_data, day_number):
         f.write("## Optimal Approach\n")
         f.write(optimal["approach"] + "\n\n")
 
+
+        class_name = to_java_class_name(problem_data["title"])
+
+        imports = (
+    "import java.util.*;\n"
+)
+
+        wrapped_java_code = (
+        f"{imports}\n"
+        f"public class {class_name} {{\n\n"
+        f"{optimal['java_code']}\n"
+        f"}}"
+        )
+
         f.write("## Java Solution\n")
         f.write("```java\n")
-        f.write(optimal["java_code"])
+        f.write(wrapped_java_code)
         f.write("\n```\n\n")
 
         # f.write("## C++ Solution\n")
@@ -81,7 +109,7 @@ def save_problem(problem_data, day_number):
         f.write(f"Space Complexity: {optimal['space_complexity']}\n")
 
     # Save JAVA Solution
-    py_path = os.path.join(folder_path, "solution.java")
+    py_path = os.path.join(folder_path, "Solution.java")
 
     with open(py_path, "w", encoding="utf-8") as f:
         f.write(problem_data["optimal_solution"]["java_code"])
