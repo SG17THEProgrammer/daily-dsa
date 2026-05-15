@@ -85,8 +85,8 @@ def save_problem(problem_data, day_number):
         class_name = to_java_class_name(problem_data["title"])
 
         imports = (
-    "import java.util.*;\n"
-)
+        "import java.util.*;\n"
+        )
 
         wrapped_java_code = (
         f"{imports}\n"
@@ -108,13 +108,31 @@ def save_problem(problem_data, day_number):
         f.write(f"Time Complexity: {optimal['time_complexity']}\n\n")
         f.write(f"Space Complexity: {optimal['space_complexity']}\n")
 
+    
     # Save JAVA Solution
     java_path = os.path.join(
-    folder_path,
-    "Solution.java"
-)
+        folder_path,
+        "Solution.java"
+        )
+    
+    class_name = to_java_class_name(problem_data["title"])
+
+    imports = (
+        "import java.util.*;\n"
+        )
+    
+    optimal = problem_data["optimal_solution"]
+
+    wrapped_java_code = (
+        f"{imports}\n"
+        f"public class {class_name} {{\n\n"
+        f"{optimal['java_code']}\n"
+        f"}}"
+        )
+    
     with open(java_path, "w", encoding="utf-8") as f:
-        f.write(wrapped_java_code)
+            f.write(wrapped_java_code)
+
 
     # Save metadata
     metadata = {
