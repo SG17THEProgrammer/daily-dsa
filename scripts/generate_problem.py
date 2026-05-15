@@ -1,8 +1,10 @@
 import json
 import os
 import time
+import requests
 
 from groq import Groq
+from slugify import slugify
 
 from prompt_builder import build_prompt
 from memory_manager import (
@@ -24,6 +26,15 @@ MODEL_NAME = "llama-3.3-70b-versatile"
 MAX_RETRIES = 5
 
 TEMPERATURE = 0.7
+
+
+# -------------------------
+# TELEGRAM CONFIG
+# -------------------------
+
+TELEGRAM_TOKEN = os.getenv("TELEGRAM_BOT_TOKEN")
+TELEGRAM_CHAT_ID = os.getenv("TELEGRAM_CHAT_ID")
+
 
 
 # =========================================================
@@ -197,6 +208,91 @@ def update_memory(
 
 
 # =========================================================
+# TELEGRAM MESSAGE
+# =========================================================
+
+def send_telegram_message(problem, current_day):
+
+    if not TELEGRAM_TOKEN or not TELEGRAM_CHAT_ID:
+        print("Telegram credentials missing")
+        return
+
+    examples_text = ""
+
+    for index, example in enumerate(problem["examples"], start=1):
+
+        examples_text += (
+            f"\nExample {index}:\n"
+            f"Input: {example['input']}\n"
+            f"Output: {example['output']}\n"
+        )
+    
+    problem_slug = slugify(problem["title"])
+
+    github_link = (
+    f"https://github.com/SG17THEProgrammer/daily-dsa/"
+    f"tree/main/practice/Day{current_day}_{problem_slug}"
+)
+
+    message = f"""
+🔥 DAILY DSA PROBLEM 🔥
+
+📅 Day: {current_day}
+
+📌 Title:
+{problem['title']}
+
+📊 Difficulty:
+{problem['difficulty']}
+
+🧠 Topic:
+{problem['topic']}
+
+🏷️ Categories:
+{', '.join(problem['category'])}
+
+📝 Problem:
+{problem['problem_description']}
+
+🎯 Expectation:
+{problem['expectation']}
+
+📌 Constraints:
+{chr(10).join(['- ' + c for c in problem['constraints']])}
+
+🧪 Examples:
+{examples_text}
+
+⏱️ Optimal Complexity:
+Time: {problem['optimal_solution']['time_complexity']}
+Space: {problem['optimal_solution']['space_complexity']}
+
+💡 Solve first yourself before reading solution.
+
+📂 Full solution available in GitHub repository.
+{github_link}
+"""
+
+    url = f"https://api.telegram.org/bot{TELEGRAM_TOKEN}/sendMessage"
+
+    payload = {
+        "chat_id": TELEGRAM_CHAT_ID,
+        "text": message
+    }
+
+    response = requests.post(
+        url,
+        data=payload
+    )
+
+    if response.status_code == 200:
+        print("Telegram message sent!")
+    else:
+        print("Telegram failed")
+        print(response.text)
+
+
+# =========================================================
 # MAIN
 # =========================================================
 
@@ -326,17 +422,29 @@ def main():
 
     print("Memory updated")
 
+
     # -----------------------------------------------------
-    # SUCCESS
+    # SEND TELEGRAM MESSAGE
     # -----------------------------------------------------
 
-    print("\n" + "=" * 60)
-    print("AUTOMATION COMPLETED")
-    print("=" * 60)
+    print("Sending Telegram message...")
 
-    print(f"Problem: {final_problem['title']}")
-    print(f"Difficulty: {final_problem['difficulty']}")
-    print(f"Topic: {final_problem['topic']}")
+    send_telegram_message(
+        problem=final_problem,
+        current_day=current_day
+    )
+
+    # # -----------------------------------------------------
+    # # SUCCESS
+    # # -----------------------------------------------------
+
+    # print("\n" + "=" * 60)
+    # print("AUTOMATION COMPLETED")
+    # print("=" * 60)
+
+    # print(f"Problem: {final_problem['title']}")
+    # print(f"Difficulty: {final_problem['difficulty']}")
+    # print(f"Topic: {final_problem['topic']}")
 
 
 # =========================================================
