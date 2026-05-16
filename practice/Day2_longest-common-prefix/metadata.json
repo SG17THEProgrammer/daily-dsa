@@ -1,0 +1,8 @@
+{
+  "title": "Longest Common Prefix",
+  "topic": "strings",
+  "difficulty": "Easy-Medium",
+  "signature": [
+    "public String longestCommonPrefix(String[] strs)"
+  ]
+}

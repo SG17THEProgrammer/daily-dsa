@@ -7,5 +7,14 @@
     "signature": [
       "public int subarraySum(int[] nums, int k)"
     ]
+  },
+  {
+    "day": 2,
+    "title": "Longest Common Prefix",
+    "topic": "strings",
+    "difficulty": "Easy-Medium",
+    "signature": [
+      "public String longestCommonPrefix(String[] strs)"
+    ]
   }
 ]
