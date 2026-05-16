@@ -109,13 +109,14 @@ def save_problem(problem_data, day_number):
         f.write(f"Space Complexity: {optimal['space_complexity']}\n")
 
     
+    class_name = to_java_class_name(problem_data["title"])
+    
     # Save JAVA Solution
     java_path = os.path.join(
         folder_path,
-        "Solution.java"
+         f"{class_name}.java"
         )
     
-    class_name = to_java_class_name(problem_data["title"])
 
     imports = (
         "import java.util.*;\n"
