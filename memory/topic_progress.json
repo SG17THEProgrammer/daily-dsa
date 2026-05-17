@@ -1,5 +1,5 @@
 {
-  "current_day": 3,
+  "current_day": 4,
   "topics": [
     "arrays",
     "strings",
@@ -14,7 +14,7 @@
   "topic_counts": {
     "arrays": 1,
     "strings": 1,
-    "hashmaps": 0,
+    "hashmaps": 1,
     "sliding_window": 0,
     "two_pointers": 0,
     "prefix_sum": 0,

@@ -16,5 +16,14 @@
     "signature": [
       "public String longestCommonPrefix(String[] strs)"
     ]
+  },
+  {
+    "day": 3,
+    "title": "Find Duplicates in Array",
+    "topic": "hashmaps",
+    "difficulty": "Easy-Medium",
+    "signature": [
+      "public List<Integer> findDuplicates(int[] nums)"
+    ]
   }
 ]
